@@ -1,9 +1,16 @@
 import mongoose from "mongoose"
 
 
+function connectToDB(){ 
+    try{
+        mongoose.connect("mongodb+srv://jorgemora:yu1hyObsMeXUeFWf@clustermain.fmym9iy.mongodb.net/?retryWrites=true&w=majority")
+     }catch(err){ 
+        console.log(err)
+        setTimeout(connectToDB, 4000)
+     }
+}
 
-mongoose.connect("mongodb+srv://jorgemora:yu1hyObsMeXUeFWf@clustermain.fmym9iy.mongodb.net/?retryWrites=true&w=majority")
-
+connectToDB()
 
 export default class Container{ 
     constructor(schema) {
@@ -52,7 +59,8 @@ export default class Container{
 
     async updateProduct(id, productInfo){ 
         const {name, price, units, category} = productInfo
-        await this.schema.updateOne({id:id}, {$set:{name, price, units, category}})
+        const productUpdated = await this.schema.updateOne({id:id}, {$set:{name, price, units, category}})
+        return productUpdated
     }
 
     async update(id, data) { 

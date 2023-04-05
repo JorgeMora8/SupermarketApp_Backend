@@ -1,6 +1,6 @@
 import Product from "./Product.js"
 
-export default class FoodRepository { 
+export default class StoreRepository { 
     constructor(dao){ 
         this.dao = dao
     }
@@ -38,7 +38,6 @@ export default class FoodRepository {
     }
     
     async updateProduct(id, product){ 
-        // console.log()
         await this.dao.updateProduct(id, product)
     }
 

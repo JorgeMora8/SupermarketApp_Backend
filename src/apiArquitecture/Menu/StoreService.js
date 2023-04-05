@@ -1,8 +1,8 @@
 
 import Product from "./Product.js"
 import { ProductDao } from "../../Persistence/DAO.js"
-import FoodRepository from "./FoodRepository.js"
-import {productValidation, ensureUniqueProduct} from "./FoodValidation.js"
+import FoodRepository from "./StoreRepository.js"
+import {productValidation, ensureUniqueProduct} from "./ProductValidation.js"
 
 export class FoodService { 
     constructor(){ 
@@ -32,8 +32,8 @@ export class FoodService {
     }
 
     async updateProduct(productId, productData) { 
-        // console.log(productData)
-        await this.repository.updateProduct(productId, productData)
+        const productUpdated = await this.repository.updateProduct(productId, productData)
+        return productUpdated
     }
 
     async getLowerPrice(quanity){ 
@@ -45,14 +45,9 @@ export class FoodService {
         const product = await this.repository.getById(productId)
         return product.asDTO()
     }
-
-    async update(){ 
-
-    }
-
     async delete(productId){ 
         await this.repository.deleteProduct(productId)
     }
 }
 
-export const StoreService = new FoodService()
+export const Store = new FoodService()

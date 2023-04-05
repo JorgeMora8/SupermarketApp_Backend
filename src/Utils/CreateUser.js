@@ -1,18 +1,14 @@
 import createID from "../Resorces/CreateID.js"
 import User from "../apiArquitecture/Users/User.js"
+import { hashPassword } from "../Resorces/hashPassword.js"
 
-export default function createUser(userData){ 
-    // const newUser = new User({
-    //                         userData.name, 
-    //                         lastname, 
-    //                         email, 
-    //                         password, 
-    //                         admin})
+export default async function createUser(userData){
+    const passwordHashed = await hashPassword(userData.password)
     const newUser = new User({ 
         name:userData.name, 
         lastname: userData.lastname, 
         email: userData.email, 
-        password: userData.password, 
+        password: passwordHashed, 
         admin:userData.admin,
         card:userData.card, 
         id:userData.id

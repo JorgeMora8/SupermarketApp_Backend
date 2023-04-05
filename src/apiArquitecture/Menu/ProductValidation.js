@@ -1,5 +1,5 @@
 import {v4} from "uuid"
-import {StoreService} from "./FoodService.js"
+import {Store} from "./StoreService.js"
 
 export function productValidation(product){ 
     if(!product.name) throw new Error("Product name missing")
@@ -13,7 +13,7 @@ export function productValidation(product){
 }
 
 export async function ensureUniqueProduct({name, price, category, units}){ 
-    const searchingProduct = await StoreService.getByName(name)
+    const searchingProduct = await Store.getByName(name)
     if(searchingProduct == null || undefined){}
     else{ throw new Error(`The product with name ${name} already exits`)}
 }

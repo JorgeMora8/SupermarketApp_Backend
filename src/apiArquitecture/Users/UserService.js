@@ -5,7 +5,7 @@ import { UserDao } from "../../Persistence/DAO.js"
 import { carService } from "../cart/cartService.js"
 
 
-import {userValidations} from "./UserValidations.js"
+import {uniqueUser, userValidations} from "./UserValidations.js"
 import createID from "../../Resorces/CreateID.js"
 
 
@@ -14,22 +14,22 @@ export default class UserService {
         this.repository = new UserRepository(UserDao)
     }
 
-    async saveUser(user){ 
-    console.log(user)
-    await userValidations(user)
-    user['card'] = 0
-    user['id'] = createID()
-    const userCreated = createUser(user)
-    await carService.createCar(user['id'])
-    await this.repository.save(userCreated)
-    const token = await createToken(user.email)
-   return {"ACCESS-TOKEN": `bearer ${token}`}
+    async saveUser(user){
+        await userValidations(user)
+        await uniqueUser(user)
+        // await this.repository.checkIfUserExits(user.email)
+        // const userCreated = await createUser(user)
+        // await this.repository.save(userCreated)
+        // await carService.createCar(userCreated.asDTO()['id'])
+        // const token = await createToken(user.email)
+
+        // return token
 
 }
 
     async getByEmail(userEmail){ 
         const user = await this.repository.getByEmail(userEmail)
-        return await user.asDTO()
+        return user.asDTO()
 
     }
     

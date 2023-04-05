@@ -5,9 +5,8 @@ export default class CartRepository{
         this.dao = dao
     }
 
-    async saveCar(car){ 
-        // console.log(car)
-        await this.dao.save(car.asDTO())
+    async saveCar(cart){ 
+        await this.dao.save(cart.asDTO())
     }
 
     async getCar(carId){ 

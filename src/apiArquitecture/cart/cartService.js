@@ -14,12 +14,13 @@ export default class CartService{
         return car
     }
 
-    async createCar(userId){ 
-        const carData = {
+    async createCar(userId){  
+        const carData = { 
             id:createID(), 
-            clientId: userId, 
+            clientId: userId
         }
         const newCar = new Cart(carData)
+        console.log(newCar.asDTO())
         await this.repository.saveCar(newCar)
     }
 

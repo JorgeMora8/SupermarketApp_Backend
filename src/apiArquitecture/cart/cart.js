@@ -1,17 +1,18 @@
 export default class Cart { 
     #id
     #clientId
-    constructor({id, clientId, prods= []}){ 
-        this.id = id
-        this.clientId = clientId
-        this.products = prods
+    #products
+    constructor({id, clientId, products= []}){ 
+        this.#id = id
+        this.#clientId = clientId
+        this.#products = products
     }
 
     asDTO(){ 
         return Object.freeze({ 
             id: this.#id, 
             clientId: this.#clientId, 
-            products: this.prods
+            products: this.#products
         })
     }
 }

@@ -4,7 +4,10 @@ import { userService } from "../apiArquitecture/Users/UserService.js"
 
 
 export async function AuthUser(req, res, next) { 
-    const token = req.get("Authorization")
+    if(!req.headers.authorization) {res.status(404).json({state:"unauthenticated , please register or login", 
+                                                        error:"Token missing"})
+        return}
+    const token = req.headers.authorization.split(' ')[1];
     if (!token) res.status(404).json({Error: "Log in or signup, your unathenticated"})
     else { 
         try { 
@@ -13,7 +16,11 @@ export async function AuthUser(req, res, next) {
             req.user = user
             next()
         }catch(error){
-            console.log(error)
+            res.status(400).json({
+                Error:"Unauthenticaed", 
+                Details:error
+            })
         }
+    
     }
 }

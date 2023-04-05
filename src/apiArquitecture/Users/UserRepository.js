@@ -10,6 +10,12 @@ export default class UserRepository {
         await this.dao.save(user.asDTO())
     }
 
+    async getAllUser(){ 
+       //Create a function to bring all users and do a foreach
+       const users = await this.dao.getAll()
+       return users
+    }
+
     async getById(userId){ 
         const userInfo = await this.dao.getById(userId)
         const user = new User(userInfo)
@@ -18,13 +24,18 @@ export default class UserRepository {
 
     async getByEmail(userEmail){
         const userInfo = await this.dao.getByEmail(userEmail)
+        if(userInfo == null) throw new Error("User not found")
+        
         const user = new User(userInfo)
         return user      
         }
 
     async chargeCard(userId, quanity){ 
-        // console.log(userId)
-        // console.log(quanity)
         await this.dao.chargeCard(userId, quanity)
+    }
+
+    async checkIfUserExits(userEmail){ 
+        const userInfo = await this.dao.getByEmail(userEmail)
+        if(userInfo) throw new Error("This user is already in user, please select other")
     }
     }
