@@ -17,8 +17,8 @@ export class FoodService {
     async save(productData){ 
         // await ensureUniqueProduct(productData)
         productValidation(productData)
-        const newPlate = new Product(productData)
-        await this.repository.save(newPlate)
+        const newProduct = new Product(productData)
+        await this.repository.save(newProduct)
     }
 
     async getByName(productName){ 

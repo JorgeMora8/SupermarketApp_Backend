@@ -4,7 +4,8 @@ import {mongoose} from "mongoose"
 const ReviewSchema = new mongoose.Schema({ 
     id: {type:String, required:true}, 
     author: {type:String, required:true}, 
-    text: {type:String, required:true}
+    opinion: {type:String, required:true}, 
+    description: {type:String, required:true}
 })
 
 

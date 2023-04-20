@@ -1,8 +1,5 @@
 export function pageNotFoundGET(req, res){ 
-    res.status(404).json({
-        Method:"GET", 
-        Details:"Page not found"
-    })
+    res.render("pageNotFound");
 }
 
 export function pageNotFoundPOST(req, res){ 

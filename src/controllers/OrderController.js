@@ -10,7 +10,9 @@ export async function createOrder(req, res){
     const clientEmail = req.user.email
     const clientId = req.user.id  
     await orderService.createOrder(clientId, clientName, clientEmail)
+    res.render("orderFinished")
     }catch(error){ 
-        res.status(400).json({Error:error})
+        res.render("errorPage", {message:error.message})
     }
+
 }

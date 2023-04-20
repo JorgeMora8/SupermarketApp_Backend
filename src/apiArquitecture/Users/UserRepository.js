@@ -13,7 +13,7 @@ export default class UserRepository {
     async getAllUser(){ 
        //Create a function to bring all users and do a foreach
        const users = await this.dao.getAll()
-       return users
+       return users.map(user => new User(user))
     }
 
     async getById(userId){ 

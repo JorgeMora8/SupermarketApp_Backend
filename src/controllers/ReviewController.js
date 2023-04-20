@@ -6,7 +6,7 @@ import reviewValidations from "../apiArquitecture/Reviews/ReviewValidations.js";
 
 export async function getReviews(req, res){ 
     const reviewList = await reviewService.getReviews()
-    res.send(reviewList)
+    res.render("reviewList", {reviewList: reviewList}); 
 }
 
 export async function getReviewById(req, res){
@@ -18,7 +18,7 @@ export async function addReview(req, res){
     const reviewData = req.body
     reviewValidations(req.body)
     await reviewService.saveReview(reviewData, req.user.email)
-    res.status(201).json({Success:"Review created"})
+    res.redirect("/api/reviews")
 }
 
 

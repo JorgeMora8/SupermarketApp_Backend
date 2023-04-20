@@ -79,22 +79,24 @@ export default class Container{
 
     async addProductInCar(productId){ 
         const product = await this.getById(productId)
-        await this.schema.updateOne({id:carId}, {$push:{prods:produc}})
+        console.log(product)
+        // await this.schema.updateOne({id:carId}, {$push:{prods:product}})
     }
 
     async getCarByUser(id){ 
         return await this.schema.findOne({clientId:id}, {_id:0, __v:0})
     }
 
-    async saveInCar(carId, {id, name, category, price, units}){
+    async saveInCar(carId, {id, name, category, price, units, image}){
         await this.schema.updateOne({clientId:carId}, {$push:{prods:{
                                                                 id:id, 
                                                                 name:name, 
                                                                 category: category, 
                                                                 price:price, 
-                                                                units:units
+                                                                units:units, 
+                                                                image:image
         }}})
-        // console.log( await this.getCarByUser(carId))
+        // console.log(name)
     }
 
     async deleteProductInCar(carId, productId){ 

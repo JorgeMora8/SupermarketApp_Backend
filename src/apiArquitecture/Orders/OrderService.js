@@ -3,6 +3,7 @@ import { OrderDao } from "../../Persistence/DAO.js"
 import {carService} from "../cart/cartService.js"
 import createID from "../../Resorces/CreateID.js"
 import Order from "./Order.js"
+import { getTotalPrice } from "../../Resorces/getTotalPrice.js"
 
 class OrderService{ 
     constructor(){ 
@@ -11,12 +12,8 @@ class OrderService{
 
     async createOrder( clientId ,clientName, clientEmail){ 
         const car = await carService.getCarByUser(clientId)
-        const productInCar = car['products']
-    
-        let total = 0
-        for(let p=0; p< productInCar.length; p++){ 
-        total += productInCar[p]["price"]
-        }
+        const productInCar = car['prods']
+        const total = getTotalPrice(productInCar)
 
         const OrderData = { 
             id:createID(), 
@@ -28,9 +25,9 @@ class OrderService{
         }
 
         const newOrder = new Order(OrderData)
-        // console.log(newOrder)
         await this.repository.createOrder(newOrder)
         await carService.emptyCar(car['id'])
+        
 
     }
 }

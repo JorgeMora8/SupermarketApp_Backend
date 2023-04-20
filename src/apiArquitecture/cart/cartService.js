@@ -10,8 +10,7 @@ export default class CartService{
 
     async getCarByUser(carId){ 
         const car = await this.repository.getCar(carId)
-        // console.log(car)
-        return car
+        return car.asDTO()
     }
 
     async createCar(userId){  
@@ -32,6 +31,7 @@ export default class CartService{
         await this.repository.deleteProduct(carId, productId)
     }
 
+    //Delete all product in the car once the order is done. 
     async emptyCar(carId){ 
         await this.repository.deleteAllProduct(carId)
     }

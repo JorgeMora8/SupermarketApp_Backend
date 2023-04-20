@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EJS</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/stylesheet/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/4834373349.js" crossorigin="anonymous"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+</head>
+<body>
+  <%- include('template/navBar.ejs'); -%>
+  <div class="productDetailHeader">
+    <img src="/images/logoMarket.png" class="logoProductDetail" alt="">
+  </div>
+  <div class="categoryProductSearch">
+    <ul class="productCategoryList">
+      <li><a href="/api/products/category/fruits" class="productCategoryLink">fruits</a></li>
+      <li><a href="/api/products/category/veggies" class="productCategoryLink">veggies</a></li>
+      <li><a href="/api/products/category/milk" class="productCategoryLink">milk</a></li>
+      <li><a href="/api/products/category/butchery" class="productCategoryLink">Butchery</a></li>
+      <li><a href="/api/products/category/drinks" class="productCategoryLink">drinks</a></li>
+      <li><a href="/api/products/category/higiene" class="productCategoryLink">higiene</a></li>
+      <li><a href="/api/products/category/canned" class="productCategoryLink">canned</a></li>
+      <li><a href="/api/products/category/sauces" class="productCategoryLink">sauces</a></li>
+    </ul>
+  </div>
+    <div class="productDetailContainer">
+        <div class="detailArea">
+            <div class="productImageArea">
+                <img src="<%=product.image%>" class="productDetailImage" alt="">
+            </div>
+            <div class="productTextArea">
+                <span class="productCategoryDetail"><%=product.category%></span>
+                <b class="productNameDetail"><%=product.name%></b>
+                <b class="productPriceDetail"><%=product.price%>$</b>
+                <b class="productUnitsDetail"><%=product.units%> units avaliable</b>
+                <div>
+                <button class="btnAddProductDetail btnAddProduct" id="<%=product.id%>">Add</button>
+              </div>
+            </div>
+        </div>
+    </div>
+    
+    <%- include('template/footer.ejs'); -%>
+    <script src="/javascripts/main.js"type="module"></script>
+</body>
+</html>

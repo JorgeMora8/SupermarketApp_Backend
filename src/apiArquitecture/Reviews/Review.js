@@ -2,21 +2,21 @@ import createID from "../../Resorces/CreateID.js"
 
 export default class Review {
     #author
-    #plate
-    #text
+    #opinion
+    #description
     #id
-    constructor({author, plate, text, id}){ 
+    constructor({author, opinion, description, id}){ 
         this.#author = author
-        this.#plate = plate
-        this.#text = text
+        this.#opinion = opinion
+        this.#description = description
         this.#id =  id
     }
 
     asDTO(){ 
         return Object.freeze ({ 
             author: this.#author,
-            plate: this.#plate, 
-            text: this.#text,
+            opinion: this.#opinion, 
+            description: this.#description,
             id: this.#id
         })
     }

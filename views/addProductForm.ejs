@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="/stylesheet/style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <%- include('template/navBar.ejs'); -%>
+  <div class="productFormContainer">
+    <h2 class="productFormTitle">Add products</h2>
+    <p class="productFormText">Add the product with the correct data to be saved in the system</p>
+  </div>
+      <div class="formContainer">
+        <form class="productForm" method="POST" target="http://localhost:8080/api/products" >
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input type="text" class="form-control" name="name" id="productName" placeholder="Add product name" aria-describedby="product name">
+            </div>
+            <div class="mb-3">
+              <label for="price" class="form-label">Price</label>
+              <input type="text" class="form-control"  name="price" placeholder="Add product price" id="productPrice">
+            </div>
+            <div class="mb-3">
+                <label for="units" class="form-label">units</label>
+                <input type="text" class="form-control" name="units" placeholder="Add product units" id="productUnits">
+              </div>
+              <div class="mb-3">
+                <label for="category" class="form-label">category</label>
+                <select name="category">
+                  <option value="fruits">fruits</option>
+                  <option value="veggies">veggies</option>
+                  <option value="milk">milk</option>
+                  <option value="drinks">drinks</option>
+                  <option value="sauces">sauces</option>
+                  <option value="butchery">butchery</option>
+                  <option value="higiene">higiene</option>
+                  <option value="imported">imported</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="image" class="form-label">image</label>
+                <input type="text" class="form-control" name="image" placeholder="Add product image" id="productImage">
+              </div>
+            <button type="submit" class="btn btn-primary btnAddProductForm">Submit</button>
+          </form>
+          </div>
+          <%- include('template/footer.ejs'); -%>
+</body>
+</html>
