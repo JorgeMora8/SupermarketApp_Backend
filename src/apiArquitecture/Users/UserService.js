@@ -2,7 +2,7 @@ import createUser from "../../Utils/CreateUser.js"
 import createToken from "../../Auth/token.js"
 import UserRepository from "./UserRepository.js"
 import { UserDao } from "../../Persistence/DAO.js"
-import { carService } from "../cart/cartService.js"
+import { cartService } from "../cart/cartService.js"
 import {userValidations} from "./UserValidations.js"
 
 export default class UserService { 
@@ -15,7 +15,7 @@ export default class UserService {
         await this.repository.checkIfUserExits(user.email)
         const userCreated = await createUser(user)
         await this.repository.save(userCreated)
-        await carService.createCar(userCreated.asDTO()['id'])
+        await cartService.createCar(userCreated.asDTO()['id'])
         const token = await createToken(user.email)
 
         return token

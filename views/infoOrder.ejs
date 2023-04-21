@@ -40,6 +40,13 @@
          </div>
          <button type="submit" id="loginSubmit" class="btnSubmitLogin">finish</button>
        </form>
+
+        <% if(message != null || undefined){ %>
+          <div class="infoError">
+            <b class="errorMessageFormOrderText"><i class="fa-solid fa-circle-exclamation fa-2x" style="color:brown"></i> ERROR: <%=message%></b>
+          </div>
+        <% } %>  
+
      </div>
     <%- include('template/footer.ejs'); -%>
 </body>

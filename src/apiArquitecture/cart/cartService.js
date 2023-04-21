@@ -36,4 +36,4 @@ export default class CartService{
 
 }   
 
-export const carService = new CartService()
+export const cartService = new CartService()

@@ -1,43 +1,34 @@
 import {orderService} from "../apiArquitecture/Orders/OrderService.js"
 import { loggerError } from "../loggers/loggerConfig.js";
+import { cartService } from "../apiArquitecture/cart/cartService.js";
+import { creditCartFormValidation } from "../Resorces/shoppingOrderFormValidation.js";
+import { getTotalPrice } from "../Resorces/getTotalPrice.js";
 
 export async function getOrders(req, res){ 
     try{ 
-        const cart = await carService.getCarByUser(req.user.id)
-        const productsInCart = cart['prods']
-        let total = 0;
-        for(let i=0; i<productsInCart.length; i++){ 
-        total += productsInCart[i].price
-        }
-        res.render("infoOrder", {products: productsInCart, total:total.toFixed(2), user:req.user})
-}   catch(error){ }
-        loggerError.error(`PRODUCT ORDER ERROR: ${error.message}`)
+        const cart = await cartService.getCarByUser(req.user.id); 
+        let total = getTotalPrice(cart['prods'])
+        res.render("infoOrder", {products: cart['prods'], total:total.toFixed(2), user:req.user, message:null})
+    }   catch(error){
+        res.render("errorPage", {message:error.message})
+        loggerError.error(`ERROR IN ORDER PROCESS: ${error.message}`)
+    }
 }
 
-// export async function createOrder(req, res){
-//     try{ 
-//     const clientName = req.user.name
-//     const clientEmail = req.user.email
-//     const clientId = req.user.id  
-//     await orderService.createOrder(clientId, clientName, clientEmail)
-//     res.render("orderFinished")
-//     }catch(error){ 
-//         res.render("errorPage", {message:error.message})
-//     }
-
-// }
 
 export async function createOrder(req, res){
-    try{
-        const cart = await carService.getCarByUser(req.user.id)
-        const productsInCart = cart['prods']
-        let total = 0;
-        for(let i=0; i<productsInCart.length; i++){ 
-            total += productsInCart[i].price
-        }
-        res.render("infoOrder", {products: productsInCart, total:total.toFixed(2), user:req.user})
-}   catch(error){ 
-        loggerError.error(`PRODUCT ORDER ERROR: ${error.message}`)
-}
 
+    const clientName = req.user.name
+    const clientEmail = req.user.email
+    const clientId = req.user.id 
+
+    try{ 
+        creditCartFormValidation(req.body);
+        await orderService.createOrder(clientId, clientName, clientEmail)
+        res.render("orderFinished")
+    }   catch(error){ 
+            const cart = await cartService.getCarByUser(req.user.id); 
+            let total = getTotalPrice(cart['prods'])
+            res.render("infoOrder", {products: cart['prods'], total:total.toFixed(2), user:req.user, message:error.message})
+    }
 }

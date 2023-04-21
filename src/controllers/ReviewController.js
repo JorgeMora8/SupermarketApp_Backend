@@ -7,7 +7,7 @@ export async function getReviews(req, res){
         const reviewList = await reviewService.getReviews()
         res.render("reviewList", {reviewList: reviewList}); 
     }   catch(error){ 
-
+        res.render("errorPage", {message:error.message})
     }
 }
 
@@ -16,7 +16,7 @@ export async function getReviewById(req, res){
         const review = await reviewService.getReviewById(req.params.id)
         res.send(review)
     }   catch(error){ 
-
+        res.render("errorPage", {message:error.message})
     }
 }
 
@@ -27,7 +27,7 @@ export async function addReview(req, res){
         await reviewService.saveReview(reviewData, req.user.email)
         res.redirect("/api/reviews")
     }   catch(error){ 
-
+        res.render("errorPage", {message:error.message})
     }
 }
 

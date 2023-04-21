@@ -804,6 +804,22 @@
     align-items: center;
 }
 
+.infoError{ 
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 1rem;
+}
+
+.errorMessageFormOrderText{ 
+    padding: 10px 20px;
+    background-color: #fff;
+    border-radius: 1rem;
+}
+
 
 @media only screen and (max-width: 1000px){
     .detailArea {

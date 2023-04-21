@@ -1,6 +1,6 @@
 import OrderRepository from "./OrderRepository.js"
 import { OrderDao } from "../../Persistence/DAO.js"
-import {carService} from "../cart/cartService.js"
+import {cartService} from "../cart/cartService.js"
 import createID from "../../Resorces/CreateID.js"
 import Order from "./Order.js"
 import { getTotalPrice } from "../../Resorces/getTotalPrice.js"
@@ -12,7 +12,7 @@ class OrderService{
     }
 
     async createOrder( clientId ,clientName, clientEmail){ 
-        const car = await carService.getCarByUser(clientId)
+        const car = await cartService.getCarByUser(clientId)
         const productInCar = car['prods']
         const total = getTotalPrice(productInCar)
 
@@ -35,7 +35,7 @@ class OrderService{
         await sendEmail(clientEmail, productInCar, total)
 
         //Clear up the cart
-        await carService.emptyCar(car['id'])
+        await cartService.emptyCar(car['id'])
         
 
     }

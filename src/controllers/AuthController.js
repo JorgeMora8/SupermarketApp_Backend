@@ -16,9 +16,7 @@ export async function registerUser(req, res){
         let userData = req.body;
         userData['admin'] = false;
         const token = await userService.saveUser(userData)
-        res.cookie("token", token, { 
-            httpOnly:true
-        })
+        res.cookie("token", token, { maxAge: 900000, httpOnly: true })
         res.redirect("/api/products")
         loggerInfo.info(`NEW USER REGISTERED: ${userData.email}`)
     }catch(error){ 
