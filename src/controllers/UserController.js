@@ -3,7 +3,6 @@ import { reviewService } from "../apiArquitecture/Reviews/ReviewService.js";
 import { userService } from "../apiArquitecture/Users/UserService.js";
 
 export async function infoUser(req, res){ 
-    // res.status(200).json({User_info: req.user})
     res.render("userInfo", {user:req.user})
 }
 

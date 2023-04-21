@@ -27,7 +27,7 @@ export async function updateReview(req, res) {
         const reviewUpdated = await reviewService.updateReview(req.params.id, req.body, req.user.email)
         res.redirect("/api/reviews/")
         }catch(error){ 
-            res.status(400).json({Something_happens:`${error}`})
+        res.render("errorPage", {message:error.message})
         }
 }
 
@@ -36,6 +36,6 @@ try{
     await reviewService.deleteReview(req.params.id, req.user.email)
     res.status(204).send(`Review with ID #${req.params.id} was deleted`)
     }catch(error){ 
-    res.status(400).json({Something_happens:`${error}`})
+        res.render("errorPage", {message:error.message})
     }
 }

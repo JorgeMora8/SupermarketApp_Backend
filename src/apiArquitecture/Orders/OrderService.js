@@ -4,6 +4,7 @@ import {carService} from "../cart/cartService.js"
 import createID from "../../Resorces/CreateID.js"
 import Order from "./Order.js"
 import { getTotalPrice } from "../../Resorces/getTotalPrice.js"
+import { sendEmail } from "../../nodemailer/nodemailerConfig.js"
 
 class OrderService{ 
     constructor(){ 
@@ -24,8 +25,16 @@ class OrderService{
             total:total
         }
 
+        //Create the order instance
         const newOrder = new Order(OrderData)
+
+        //Save the order
         await this.repository.createOrder(newOrder)
+
+        //Send the emails
+        await sendEmail(clientEmail, productInCar, total)
+
+        //Clear up the cart
         await carService.emptyCar(car['id'])
         
 

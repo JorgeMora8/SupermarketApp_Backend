@@ -19,7 +19,9 @@ export async function registerUser(req, res){
         //Needs to have a validations 
         userData['admin'] = false;
         const token = await userService.saveUser(userData)
-        res.cookie("token", token)
+        res.cookie("token", token, { 
+            httpOnly:true
+        })
         res.redirect("/api/products")
     }catch(error){ 
        res.render("errorPage", {message:error.message})

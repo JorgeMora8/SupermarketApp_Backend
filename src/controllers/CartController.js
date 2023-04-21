@@ -10,8 +10,7 @@ export async function getCart(req, res){
         // console.log(car)
         res.render("cartView", {"cart":car['prods']})
     }catch(error){
-        console.log(error)
-        res.status(400).send(error)
+        res.render("errorPage", {message:error.message})
     }
 }
 
@@ -24,9 +23,7 @@ export async function addProductInCart(req, res){
         detail:"Product added succesfully"
     })
     }catch(error){ 
-        res.status(400).json({ 
-            Error: error
-        })
+        res.render("errorPage", {message:error.message})
     }
 }
 
@@ -35,8 +32,6 @@ export async function deleteCart(req, res){
     await carService.deleteProduct(req.user.id, req.params.id)
     res.status(204).json({"Success":"Product deleted"})
     }catch(error){ 
-        res.status(400).json({
-            Error:error
-        })
+        res.render("errorPage", {message:error.message})
     }
 }
