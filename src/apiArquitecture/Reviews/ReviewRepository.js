@@ -5,7 +5,6 @@ export default class ReviewRepository {
         this.dao = dao
     }
 
-
     async save(review){ 
         await this.dao.save(review.asDTO())
     }

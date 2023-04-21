@@ -2,7 +2,7 @@
 import Product from "./Product.js"
 import { ProductDao } from "../../Persistence/DAO.js"
 import FoodRepository from "./StoreRepository.js"
-import {productValidation, ensureUniqueProduct} from "./ProductValidation.js"
+import {productValidation} from "./ProductValidation.js"
 
 export class FoodService { 
     constructor(){ 
@@ -15,7 +15,6 @@ export class FoodService {
     }
 
     async save(productData){ 
-        // await ensureUniqueProduct(productData)
         productValidation(productData)
         const newProduct = new Product(productData)
         await this.repository.save(newProduct)

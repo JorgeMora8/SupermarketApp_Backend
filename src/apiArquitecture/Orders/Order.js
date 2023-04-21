@@ -1,8 +1,8 @@
 export default class Order{ 
     constructor({clientName, clientEmail, date, prods, total, id}){ 
-        this.clientName = clientName //req.user.name
-        this.clientEmail = clientEmail //req.user.email
-        this.date = date //date.now()
+        this.clientName = clientName 
+        this.clientEmail = clientEmail 
+        this.date = date 
         this.prods = prods
         this.total = total 
         this.id = id

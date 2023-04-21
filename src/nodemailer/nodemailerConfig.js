@@ -2,8 +2,7 @@ import nodemailer from "nodemailer"
 import path from "path"
 import hbs from "nodemailer-express-handlebars";
 import { userService } from "../apiArquitecture/Users/UserService.js";
-
-const adminEmail = "jorgeandresmm2002@gmail.com"
+import { ADMIN_EMAIL } from "../config/Env.js";
 
  let transporter = nodemailer.createTransport({
     service: "gmail", 
@@ -30,7 +29,18 @@ const adminEmail = "jorgeandresmm2002@gmail.com"
 
       await transporter.sendMail({ 
         from:"Food Market", 
-        to:adminEmail, 
+        to:ADMIN_EMAIL, 
+        subject:"Purchase", 
+        template:"email",
+        context:{ 
+          products: products, 
+          total:total
+        }
+      })
+
+      await transporter.sendMail({ 
+        from:"Food Market", 
+        to:email, 
         subject:"Purchase", 
         template:"email",
         context:{ 

@@ -8,7 +8,6 @@ import { renderProductForm, addProduct,
     updateProduct } from "../controllers/StoreControllers.js";
 import { authAdmin } from "../Auth/AuthAdmin.js";
 
-
 export const StoreRouter = Router()
 
 StoreRouter.get("/", await getProducts)

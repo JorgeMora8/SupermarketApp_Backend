@@ -1,9 +1,10 @@
 import mongoose from "mongoose"
+import { DB_CLOUD_DEVELOP } from "../../config/Env.js"
 
 
 function connectToDB(){ 
     try{
-        mongoose.connect("mongodb+srv://jorgemora:yu1hyObsMeXUeFWf@clustermain.fmym9iy.mongodb.net/?retryWrites=true&w=majority")
+        mongoose.connect(DB_CLOUD_DEVELOP)
      }catch(err){ 
         console.log(err)
         setTimeout(connectToDB, 4000)
@@ -80,7 +81,6 @@ export default class Container{
     async addProductInCar(productId){ 
         const product = await this.getById(productId)
         console.log(product)
-        // await this.schema.updateOne({id:carId}, {$push:{prods:product}})
     }
 
     async getCarByUser(id){ 
@@ -96,7 +96,6 @@ export default class Container{
                                                                 units:units, 
                                                                 image:image
         }}})
-        // console.log(name)
     }
 
     async deleteProductInCar(carId, productId){ 

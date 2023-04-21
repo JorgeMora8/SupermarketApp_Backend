@@ -1,7 +1,6 @@
 import CreateID from "../../Resorces/CreateID.js"
 
 export default class User{ 
-    //Private data
     #id
     #name
     #lastname

@@ -4,7 +4,6 @@ export const userRouter = Router()
 
 export const AuthRouter = Router()
 
-
 //Render Views
 AuthRouter.get("/login", renderLoginPage)
 AuthRouter.get("/register", renderRegisterPage)

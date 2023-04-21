@@ -2,10 +2,8 @@ import jwt from "jsonwebtoken"
 import {SECRET_WORD} from '../config/Env.js'
 import { userService } from "../apiArquitecture/Users/UserService.js"
 
-
 export async function AuthUser(req, res, next) { 
     const token = req.cookies['token']
-
     if(!token)  res.render("unathenticated")
 
     else { 

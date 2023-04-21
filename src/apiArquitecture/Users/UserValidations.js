@@ -19,7 +19,6 @@ export async function userValidations(user){
 }
 
 export async function uniqueUser(userEmail) { 
-        //Function to ensure a unique user in the Database
         const users = await userService.getAllUser()
         users.forEach(user => { 
             if (user.email == userEmail) throw new Error("This user is already in use")

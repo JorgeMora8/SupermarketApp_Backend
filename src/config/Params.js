@@ -6,7 +6,5 @@ const configParams = ParsedArgs(process.argv.slice(2), {
     alias:{p:"PORT", DB:"DATABASE"}
 })
 
-
 export const SERVER_PORT = configParams.PORT
 export const SERVER_DB = configParams.DATABASE
-export const ADMIN_EMAIL = 'jorgeandresmm2002@gmail.com'

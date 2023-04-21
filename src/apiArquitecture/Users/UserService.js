@@ -3,11 +3,7 @@ import createToken from "../../Auth/token.js"
 import UserRepository from "./UserRepository.js"
 import { UserDao } from "../../Persistence/DAO.js"
 import { carService } from "../cart/cartService.js"
-
-
-import {uniqueUser ,userValidations} from "./UserValidations.js"
-import createID from "../../Resorces/CreateID.js"
-
+import {userValidations} from "./UserValidations.js"
 
 export default class UserService { 
     constructor(){ 
@@ -23,7 +19,6 @@ export default class UserService {
         const token = await createToken(user.email)
 
         return token
-
 }
 
     async getByEmail(userEmail){ 
@@ -38,8 +33,6 @@ export default class UserService {
     }
 
     async chargeCard(userId, quanity){ 
-        // console.log(userId)
-        // console.log(quanity)
         await this.repository.chargeCard(userId, quanity)
     }
 
@@ -47,8 +40,6 @@ export default class UserService {
         let userList =  await this.repository.getAllUser()
         return userList.map(user => user.asDTO())
     }
-
-    
 }
 
 export const userService = new UserService()
