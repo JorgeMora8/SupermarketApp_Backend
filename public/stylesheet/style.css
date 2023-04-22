@@ -820,6 +820,24 @@
     border-radius: 1rem;
 }
 
+.blogContainer{ 
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.blogItem{ 
+  width: 20rem;
+  height: 16rem;  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 
 @media only screen and (max-width: 1000px){
     .detailArea {

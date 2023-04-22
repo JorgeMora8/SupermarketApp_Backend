@@ -22,12 +22,13 @@ app.use(cookieParser())
 app.set("view engine", "ejs")
 app.set("views", "./views")
 
-app.use("/api/cart",AuthUser, CarRouter)
-app.use("/api/user",AuthUser ,userRouter)
-app.use("/api/auth", AuthRouter)
+app.use("/api/cart",AuthUser, CarRouter);
+app.use("/api/user",AuthUser ,userRouter);
+app.use("/api/auth", AuthRouter);
 app.use("/api/products", AuthUser , StoreRouter)
 app.use("/api/order", AuthUser ,orderRouter)
 app.use("/api/reviews",AuthUser ,reviewRouter)
+
 
 app.get("/", Homepage)
 app.get("*", pageNotFoundGET)
