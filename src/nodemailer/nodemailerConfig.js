@@ -1,6 +1,4 @@
 import nodemailer from "nodemailer"
-import path, { dirname } from "path"
-import hbs from "nodemailer-express-handlebars";
 import { userService } from "../apiArquitecture/Users/UserService.js";
 import { ADMIN_EMAIL } from "../config/Env.js";
 
@@ -13,15 +11,6 @@ import { ADMIN_EMAIL } from "../config/Env.js";
     },
   });
 
-  const handlebarsOptions = { 
-    viewEngine: {
-      partialsDir: path.resolve(dirname + "./views/"),
-      defaultLayout: false 
-    }, 
-    viewPath: path.resolve(dirname + "./views/"),
-  };
-
-  transporter.use("compile", hbs(handlebarsOptions))
 
   export async function sendEmail(email, products, total){ 
 
@@ -31,22 +20,21 @@ import { ADMIN_EMAIL } from "../config/Env.js";
         from:"Food Market", 
         to:ADMIN_EMAIL, 
         subject:"Purchase", 
-        template:"email",
-        context:{ 
-          products: products, 
-          total:total
-        }
+        html:`<h1>Hello ${user.name}</h1>
+              <h2>Your purchase is on its way.</h2>
+              <p>Thanks for be a part of this family</p>
+              <b>TOTAL: ${total}</b>`
+              
       })
 
       await transporter.sendMail({ 
         from:"Food Market", 
         to:email, 
         subject:"Purchase", 
-        template:"email",
-        context:{ 
-          products: products, 
-          total:total
-        }
+        html:`<h1>Hello ${user.name}</h1>
+        <h2>Your purchase is on its way.</h2>
+        <p>Thanks for be a part of this family</p>
+        <b>TOTAL: ${total}</b>`
       })
 }
 
