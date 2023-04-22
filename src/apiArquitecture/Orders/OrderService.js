@@ -32,7 +32,7 @@ class OrderService{
         await this.repository.createOrder(newOrder)
 
         //Send the emails
-        await sendEmail(clientEmail, productInCar, total)
+        // await sendEmail(clientEmail, productInCar, total)
 
         //Clear up the cart
         await cartService.emptyCar(car['id'])

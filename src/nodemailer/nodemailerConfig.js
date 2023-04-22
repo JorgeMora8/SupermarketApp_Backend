@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer"
-import path from "path"
+import path, { dirname } from "path"
 import hbs from "nodemailer-express-handlebars";
 import { userService } from "../apiArquitecture/Users/UserService.js";
 import { ADMIN_EMAIL } from "../config/Env.js";
@@ -15,10 +15,10 @@ import { ADMIN_EMAIL } from "../config/Env.js";
 
   const handlebarsOptions = { 
     viewEngine: {
-      partialsDir: path.resolve("./views/"),
+      partialsDir: path.resolve(dirname + "./views/"),
       defaultLayout: false 
     }, 
-    viewPath: path.resolve("./views/"),
+    viewPath: path.resolve(dirname + "./views/"),
   };
 
   transporter.use("compile", hbs(handlebarsOptions))
