@@ -2,24 +2,18 @@ import { reviewService } from "../apiArquitecture/Reviews/ReviewService.js";
 import reviewValidations from "../apiArquitecture/Reviews/ReviewValidations.js";
 
 
+//GET ALL THE REVIEWS
 export async function getReviews(req, res){ 
     try{
         const reviewList = await reviewService.getReviews()
-        res.render("reviewList", {reviewList: reviewList}); 
+        res.status(200).json(reviewList)
     }   catch(error){ 
-        res.render("errorPage", {message:error.message})
+        res.status(400).json({"ERROR":`${error}`})
     }
 }
 
-export async function getReviewById(req, res){
-    try{ 
-        const review = await reviewService.getReviewById(req.params.id)
-        res.send(review)
-    }   catch(error){ 
-        res.render("errorPage", {message:error.message})
-    }
-}
 
+//ADD NEW REVIEW
 export async function addReview(req, res){ 
     try{ 
         const reviewData = req.body
@@ -32,15 +26,8 @@ export async function addReview(req, res){
 }
 
 
-export async function updateReview(req, res) { 
-    try{
-        const reviewUpdated = await reviewService.updateReview(req.params.id, req.body, req.user.email)
-        res.redirect("/api/reviews/")
-    }   catch(error){ 
-        res.render("errorPage", {message:error.message})
-    }
-}
 
+//DELETE A REVIEW
 export async function deleteProduct(req, res) { 
     try{
         await reviewService.deleteReview(req.params.id, req.user.email)

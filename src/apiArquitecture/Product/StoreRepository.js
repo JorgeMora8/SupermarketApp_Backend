@@ -15,9 +15,8 @@ export default class StoreRepository {
     }
 
     async getByName(productName){ 
-        let product = await this.dao.getByName(productName)
-        product = new Product(product)
-        return product
+        let products = await this.dao.getByName(productName)
+        return products.map(product => new Product(product))
     }
 
     async getById(productId){ 

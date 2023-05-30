@@ -41,7 +41,7 @@ export default class Container{
     }
 
     async getByName(productName){
-        const products = await this.schema.findOne({name: productName}, {_id:0, __v:0})
+        const products = await this.schema.find( { $text: { $search: productName } } )
         return products
     }
 
@@ -59,8 +59,8 @@ export default class Container{
     }
 
     async updateProduct(id, productInfo){ 
-        const {name, price, units, category} = productInfo
-        const productUpdated = await this.schema.updateOne({id:id}, {$set:{name, price, units, category}})
+        const {name, price, units, category, image} = productInfo
+        const productUpdated = await this.schema.updateOne({id:id}, {$set:{name, price, units, category, image}})
         return productUpdated
     }
 

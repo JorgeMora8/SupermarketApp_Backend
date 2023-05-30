@@ -1,34 +1,15 @@
 import {orderService} from "../apiArquitecture/Orders/OrderService.js"
-import { loggerError } from "../loggers/loggerConfig.js";
-import { cartService } from "../apiArquitecture/cart/cartService.js";
-import { creditCartFormValidation } from "../Resorces/shoppingOrderFormValidation.js";
-import { getTotalPrice } from "../Resorces/getTotalPrice.js";
-
-export async function getOrders(req, res){ 
-    try{ 
-        const cart = await cartService.getCarByUser(req.user.id); 
-        let total = getTotalPrice(cart['prods'])
-        res.render("infoOrder", {products: cart['prods'], total:total.toFixed(2), user:req.user, message:null})
-    }   catch(error){
-        res.render("errorPage", {message:error.message})
-        loggerError.error(`ERROR IN ORDER PROCESS: ${error.message}`)
-    }
-}
-
 
 export async function createOrder(req, res){
 
-    const clientName = req.user.name
-    const clientEmail = req.user.email
-    const clientId = req.user.id 
-
+    const clientCart = req.body.cart
+    const clientEmail = req.body.email
+    const clientFirstName = req.body.firstNames
+    const clientLastName = req.body.lastname
     try{ 
-        creditCartFormValidation(req.body);
-        await orderService.createOrder(clientId, clientName, clientEmail)
-        res.render("orderFinished")
+        await orderService.createOrder(clientCart, clientFirstName, clientEmail)
+        res.status(201).json({"ORDER_STATE":"SUCCESS", "MESSAGE":"ORDER FINISHED SUCCESFULLY"})
     }   catch(error){ 
-            const cart = await cartService.getCarByUser(req.user.id); 
-            let total = getTotalPrice(cart['prods'])
-            res.render("infoOrder", {products: cart['prods'], total:total.toFixed(2), user:req.user, message:error.message})
+            console.log(error);
     }
 }

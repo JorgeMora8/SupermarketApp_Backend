@@ -1,5 +1,4 @@
 import nodemailer from "nodemailer"
-import { userService } from "../apiArquitecture/Users/UserService.js";
 import { ADMIN_EMAIL } from "../config/Env.js";
 
  let transporter = nodemailer.createTransport({
@@ -12,15 +11,14 @@ import { ADMIN_EMAIL } from "../config/Env.js";
   });
 
 
-  export async function sendEmail(email, products, total){ 
+  export async function sendEmail(email, cart, total){ 
 
-    const user = await userService.getByEmail(email)
 
       await transporter.sendMail({ 
         from:"Food Market", 
         to:ADMIN_EMAIL, 
         subject:"Purchase", 
-        html:`<h1>Hello ${user.name}</h1>
+        html:`<h1>Hello ${email}</h1>
               <h2>Your purchase is on its way.</h2>
               <p>Thanks for be a part of this family</p>
               <b>TOTAL: ${total}</b>`
@@ -31,7 +29,7 @@ import { ADMIN_EMAIL } from "../config/Env.js";
         from:"Food Market", 
         to:email, 
         subject:"Purchase", 
-        html:`<h1>Hello ${user.name}</h1>
+        html:`<h1>Hello ${email}</h1>
         <h2>Your purchase is on its way.</h2>
         <p>Thanks for be a part of this family</p>
         <b>TOTAL: ${total}</b>`

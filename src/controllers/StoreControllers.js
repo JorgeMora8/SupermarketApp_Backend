@@ -6,20 +6,22 @@ import { updateProductValidation } from "../Resorces/ensureCorrectData.js";
 export async function getProducts(req, res){ 
     try{
         const products = await Store.getAllProducts()
-        res.render("index", {products:products})
+        res.cookie('cookieName',"randomNumber", { maxAge: 900000, httpOnly: true })
+        res.status(200).json(products)
     }   catch(err){ 
-        res.render("errorPage", {message:error.message})
+        res.status(400).json({"ERROR":`${err}`})
     }
 }
 
-export async function searchProduct(req, res){ 
+//END POINT SEARCH PRODUCT
+export async function getProductByName(req, res){ 
     try{ 
-        const ProductNameQuery = req.query.name
-        const ProductName = ProductNameQuery.replace("-", " ")
-        const products = await Store.getByName(ProductName)
-        res.send(products)
+        const ProductNameQuery = req.params.productName
+        // const ProductName = ProductNameQuery.replace("-", " ")
+        const products = await Store.getByName(ProductNameQuery)
+        res.status(200).json(products)
     }   catch(error){ 
-        res.render("errorPage", {message:error.message})
+        res.status(400).json({"ERROR":`${error}`})
     }
 }
 
@@ -33,11 +35,9 @@ export async function getByCategory(req, res) {
         const CategoryParams = req.params.category
         const productCategoryQuery = CategoryParams.replace("-", " ");
         const productList = await Store.getByCategory(productCategoryQuery)
-        res.render("productSearch", 
-        {productCategory:CategoryParams, 
-        products:productList})
+        res.status(200).json(productList)
     }   catch(error){ 
-        res.render("errorPage", {message:error.message})
+        res.status(400).json({"ERROR":`${err}`})
     }
 }
 
@@ -45,9 +45,9 @@ export async function getByCategory(req, res) {
 export async function addProduct(req, res) { 
         try{ 
             await Store.save(req.body)
-            res.redirect("/api/products")
+            res.status(200).json({'SUCCESS':"Product added succesfully"})
         }   catch(error){ 
-            res.render("errorPage", {message:error.message})
+            res.status(400).json({"ERROR":`${err}`})
         }
 }
 
@@ -69,18 +69,17 @@ export async function updateProduct(req, res) {
 export async function deleteProduct(req, res){ 
     try{
         await Store.delete(req.params.id)
-        res.status(204).json({Success:`The product #${req.params.id} was deleted succesfully`})
+        res.status(204).json("PRODUCT DELETED SUCCESFULLY")
     }   catch(error){ 
-        res.render("errorPage", {message:error.message})
+        res.status(400).json({"ERROR":"PRODUCT NOT FOUND"})
     }
 }
 
 export async function getProductById(req, res){ 
     try{
         const product = await Store.getById(req.params.id)
-
-        res.render("productDetail", {product:product})
+        res.status(200).json(product)
     }   catch(err){ 
-        res.redirect("/api/products")
+        res.status(400).json({ERROR:`PRODUCT NOT FOUND`})
     }
 }

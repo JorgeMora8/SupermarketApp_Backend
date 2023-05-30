@@ -1,12 +1,12 @@
 
 import Product from "./Product.js"
 import { ProductDao } from "../../Persistence/DAO.js"
-import FoodRepository from "./StoreRepository.js"
+import StoreRepository from "./StoreRepository.js"
 import {productValidation} from "./ProductValidation.js"
 
-export class FoodService { 
+export class StoreService { 
     constructor(){ 
-        this.repository = new FoodRepository(ProductDao)
+        this.repository = new StoreRepository(ProductDao)
     }
 
     async getAllProducts(){ 
@@ -22,7 +22,7 @@ export class FoodService {
 
     async getByName(productName){ 
         const products = await this.repository.getByName(productName)
-        return products.asDTO()
+        return products.map(product => product.asDTO())
     }
 
     async getByCategory(category){ 
@@ -49,4 +49,4 @@ export class FoodService {
     }
 }
 
-export const Store = new FoodService()
+export const Store = new StoreService()
